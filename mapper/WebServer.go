@@ -1,4 +1,4 @@
-package main
+package mapper
 
 import (
 	"html/template"
