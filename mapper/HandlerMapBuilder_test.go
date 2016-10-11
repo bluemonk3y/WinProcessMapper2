@@ -8,8 +8,6 @@ import (
 func TestDownload(t *testing.T) {
 
 
-	mapper.
-
 	t.Logf("does it work")
 	//t.Errorf("\t\tShould receive a \"%d\" status. ", 100)
 
