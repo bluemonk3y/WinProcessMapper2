@@ -18,6 +18,7 @@ const (
 	MyDB = "introspector-1"
 	username = ""
 	password = ""
+	MyDB2 = "introspector-1"
 )
 type ServerStats struct {
 	hostname, ip_public, ip_address, ip_subnet, ip_gateway string
@@ -117,7 +118,10 @@ func writeServerStats(serverStats *ServerStats)  {
 	// Write the batch
 	c.Write(bp)
 }
+func GetOutboundIP2() string {
 
+	return "aaa"
+}
 // Get preferred outbound ip of this machine
 func GetOutboundIP() string {
 	conn, err := net.Dial("udp", "8.8.8.8:80")
