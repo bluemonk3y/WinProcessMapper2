@@ -24,12 +24,17 @@ type ServerStats struct {
 	hostname, ip_public, ip_address, ip_subnet, ip_gateway string
 	processes, file_handles, server_ports, client_ports int
 	cpu_load, disk_load, net_load, mem_util float32
+}
 
+type PidMap struct {
+	name, owner string
+	pid, ppid int
+	files []string
 }
 
 
 
-func processNetstat(stats *ServerStats, processMap map[string]map[string][]string) {
+func processNetstat(stats *ServerStats, processMap map[int]PidMap) {
 	netout := exec.Command("netstat", "-a", "-n", "-o")
 	netstatPipe,err2 := netout.StdoutPipe()
 
@@ -118,10 +123,6 @@ func writeServerStats(serverStats *ServerStats)  {
 	// Write the batch
 	c.Write(bp)
 }
-func GetOutboundIP2() string {
-
-	return "aaa"
-}
 // Get preferred outbound ip of this machine
 func GetOutboundIP() string {
 	conn, err := net.Dial("udp", "8.8.8.8:80")
@@ -142,7 +143,7 @@ func main2() {
 
 	stats := new(ServerStats)
 
-	var processMap = make(map[string]map[string][]string)
+	var processMap = make(map[int]PidMap)
 
 
 	fmt.Printf("handles ")

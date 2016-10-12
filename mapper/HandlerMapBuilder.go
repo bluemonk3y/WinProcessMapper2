@@ -7,20 +7,32 @@ import (
 	"bufio"
 	"io"
 	"strings"
+	"strconv"
 )
+const (
+	LINE_FILE = iota
+	LINE_PID
+	LINE_OTHER
+)
+var IGNORE_PATHS = []string { "C:\\Windows",  }
 
+func logIt(msg string) {
+	fmt.Println(msg)
+	log.Println(msg)
+}
 
-func processHandles(stats *ServerStats, processMap map[string]map[string][]string) {
+func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
-	log.Println("process handles...")
+	logIt("process handles")
 
-	handle := exec.Command("./etc/Handle.exe")
+	handle := exec.Command("../etc/Handle.exe")
 	handlesPipe,err := handle.StdoutPipe()
 	handle.Start()
 	handlesProcessReader := bufio.NewReader(handlesPipe)
 
-	var currentPIdMap = make(map[string][]string)
+	var currentPIdMap = new(PidMap)
 
+	logIt("process handles================================")
 
 	for {
 		var line string
@@ -36,40 +48,54 @@ func processHandles(stats *ServerStats, processMap map[string]map[string][]strin
 		if err != nil {
 			panic(err)
 		}
+		var lineType = getLineType(line);
 
-		//fmt.Print(line)
-		if (isPidLine(line)) {
+		if (lineType == LINE_PID) {
+			var parts = strings.Fields(line)
 
-			if (!strings.Contains(line, "unable to open process")) {
-
-				var parts = strings.Fields(line)
-				currentPIdMap = make(map[string][]string)
-
-				currentPIdMap["name"] = []string{parts[0] }
-				currentPIdMap["pid"] = []string{parts[2] }
-				currentPIdMap["owner"] = []string{parts[3] }
-				currentPIdMap["files"] = []string{}
-				processMap[parts[2]] = currentPIdMap
+			if (currentPIdMap != nil) {
+				logIt(fmt.Sprintf("%+v", currentPIdMap))
 			}
 
-		} else if (strings.Contains(line, " File ")){
-			// B4: File  (---)   C:\Windows\System32\en-US\user32.dll.mui
+			var aaa, _ =   strconv.Atoi(parts[2])
+			currentPIdMap = &PidMap{name: parts[0], owner: parts[3], pid: aaa, files: []string{} }
+
+			processMap[aaa] = *currentPIdMap
+
+		} else if (lineType == LINE_FILE){
+			//fmt.Printf("BBB %+v \n", currentPIdMap)
 
 			var parts = strings.Fields(line)
 			var sofile = parts[3]
 			var fileIndex = strings.LastIndex(line, sofile)
 			var ff = line[fileIndex:len(line)]
-			currentPIdMap["files"] = append(currentPIdMap["files"],ff)
+			currentPIdMap.files = append(currentPIdMap.files,ff)
 			stats.file_handles += 1
 		}
 	}
-
 
 	// Wait for the result of the command; also closes our end of the pipe
 	err = handle.Wait()
 	fmt.Printf("HANDLES >> process map size %d\n", len(processMap))
 
 }
-func isPidLine(line string) bool {
-	return strings.Contains(line, "pid:")
+func getLineType(line string) int {
+	if (strings.Contains(line, ": File")) {
+		for _, v := range IGNORE_PATHS {
+			if (strings.Contains(line, v)) {
+				return LINE_OTHER
+			}
+		}
+
+		return LINE_FILE
+	}
+	if (strings.Contains(line, "pid: ")) {
+		if (strings.Contains(line, "unable to open process")) {
+			return  LINE_OTHER
+
+		}
+		return LINE_PID
+	}
+	return LINE_OTHER
+
 }
