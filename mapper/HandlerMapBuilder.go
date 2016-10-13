@@ -14,7 +14,7 @@ const (
 	LINE_PID
 	LINE_OTHER
 )
-var IGNORE_PATHS = []string { "C:\\Windows",  }
+var IGNORE_PATHS = []string { "C:\\Windows",  "C:\\Program Files" }
 
 func logIt(msg string) {
 	fmt.Println(msg)
@@ -30,7 +30,7 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 	handle.Start()
 	handlesProcessReader := bufio.NewReader(handlesPipe)
 
-	var currentPIdMap = new(PidMap)
+	var currentPIdMap = PidMap{name: "", owner: "", pid: 0, files: []string{} }
 
 	logIt("process handles================================")
 
@@ -51,20 +51,16 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 		var lineType = getLineType(line);
 
 		if (lineType == LINE_PID) {
+			if (currentPIdMap.pid != 0) {
+				processMap[currentPIdMap.pid] = currentPIdMap
+			}
 			var parts = strings.Fields(line)
 
-			if (currentPIdMap != nil) {
-				logIt(fmt.Sprintf("%+v", currentPIdMap))
-			}
-
 			var aaa, _ =   strconv.Atoi(parts[2])
-			currentPIdMap = &PidMap{name: parts[0], owner: parts[3], pid: aaa, files: []string{} }
-
-			processMap[aaa] = *currentPIdMap
+			currentPIdMap = PidMap{name: parts[0], owner: parts[3], pid: aaa, files: []string{"aaa"} }
 
 		} else if (lineType == LINE_FILE){
 			//fmt.Printf("BBB %+v \n", currentPIdMap)
-
 			var parts = strings.Fields(line)
 			var sofile = parts[3]
 			var fileIndex = strings.LastIndex(line, sofile)
@@ -76,8 +72,6 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
 	// Wait for the result of the command; also closes our end of the pipe
 	err = handle.Wait()
-	fmt.Printf("HANDLES >> process map size %d\n", len(processMap))
-
 }
 func getLineType(line string) int {
 	if (strings.Contains(line, ": File")) {

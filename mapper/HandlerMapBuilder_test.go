@@ -22,6 +22,7 @@ func TestLineMatching(t *testing.T) {
 	//t.Logf("does it work:%d", PID)
 	//t.Errorf("\t\tShould receive a \"%d\" status. ", OTHER)
 }
+
 func TestSmellyIntegration(t *testing.T) {
 
 	stats := new(ServerStats)
@@ -30,7 +31,22 @@ func TestSmellyIntegration(t *testing.T) {
 	var processMap = make(map[int]PidMap)
 	processHandles(stats, processMap)
 	fmt.Println(len(processMap))
+	fmt.Printf("HANDLES >> process map size %d\n", len(processMap))
 
-	//t.Logf("does it work:%d", PID)
+	// find process with largest number of file handles
+	var largestFiles = 0
+	var foundPid = 0
+	fmt.Println("A-GOT: ", foundPid)
+	for _, v := range processMap{
+		fmt.Printf("%d %s %d\n", v.pid, v.name, len(v.files))
+		if (len(v.files) > largestFiles) {
+			fmt.Println("======")
+			foundPid = v.pid
+			largestFiles = len(v.files)
+		}
+	}
+
+
+	fmt.Println("B-GOT: ", foundPid, processMap[foundPid].name, len(processMap[foundPid].files))
 	//t.Errorf("\t\tShould receive a \"%d\" status. ", OTHER)
 }
