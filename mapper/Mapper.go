@@ -32,6 +32,27 @@ type PidMap struct {
 	clients []string
 }
 
+func finaliseServerStats(stats *ServerStats, processMap map[int]PidMap){
+
+
+	hhh, err := os.Hostname()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+
+	stats.processes = len(processMap)
+	stats.hostname = hhh
+	stats.ip_address = GetOutboundIP()
+
+	stats.net_load = 0.12
+	stats.disk_load = 0.5
+	stats.cpu_load = 25.5
+
+
+
+}
+
 func writeServerStats(serverStats *ServerStats)  {
 
 
@@ -120,18 +141,6 @@ func main2() {
 
 
 
-	hhh, err := os.Hostname()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-
-	stats.processes = len(processMap)
-	stats.hostname = hhh
-	stats.net_load = 0.12
-	stats.disk_load = 0.5
-	stats.cpu_load = 25.5
-	stats.ip_address = GetOutboundIP()
 
 	writeServerStats(stats)
 

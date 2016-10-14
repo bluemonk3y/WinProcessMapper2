@@ -2,7 +2,6 @@ package mapper
 
 import (
 	"fmt"
-	"log"
 	"os/exec"
 	"bufio"
 	"io"
@@ -15,11 +14,6 @@ const (
 	LINE_OTHER
 )
 var IGNORE_PATHS = []string { "C:\\Windows",  "C:\\Program Files" }
-
-func logIt(msg string) {
-	fmt.Println(msg)
-	log.Println(msg)
-}
 
 func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
@@ -54,6 +48,8 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
 			var pid, _ =   strconv.Atoi(parts[2])
 			currentPIdMap = PidMap{name: parts[0], owner: parts[3], pid: pid, files: []string{"aaa"} }
+
+			stats.processes += 1
 
 		} else if (lineType == LINE_FILE) {
 			//fmt.Printf("BBB %+v \n", currentPIdMap)

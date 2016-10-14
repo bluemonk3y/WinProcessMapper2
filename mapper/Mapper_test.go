@@ -3,7 +3,6 @@ package mapper
 
 import (
 	"testing"
-	"fmt"
 )
 /**
 * go test -v
@@ -16,9 +15,7 @@ func TestHandlerAndNetstat_Integration(t *testing.T) {
 
 	stats := new(ServerStats)
 
-	t.Log("stuff")
-
-	fmt.Println("\n\nMapper: Starting FAT Integration test ======================================================")
+	t.Log("\t\t Starting Integration test ======================================================")
 	var processMap = make(map[int]PidMap)
 
 	processHandles(stats, processMap)
@@ -37,6 +34,8 @@ func TestHandlerAndNetstat_Integration(t *testing.T) {
 		}
 	}
 
-	fmt.Println("\t\t Most Clients: ", processMap[foundPid].pid, processMap[foundPid].fileHandles)
+	t.Log("\t\t Most Clients: ", processMap[foundPid].pid, processMap[foundPid].fileHandles)
+
+	t.Log(stats)
 }
 
