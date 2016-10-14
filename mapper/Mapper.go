@@ -45,9 +45,9 @@ func finaliseServerStats(stats *ServerStats, processMap map[int]PidMap){
 	stats.hostname = hhh
 	stats.ip_address = GetOutboundIP()
 
-	stats.net_load = 0.12
-	stats.disk_load = 0.5
-	stats.cpu_load = 25.5
+	stats.net_load = 0.0
+	stats.disk_load = 0.0
+	stats.cpu_load = Win_CpuLoad()
 
 
 

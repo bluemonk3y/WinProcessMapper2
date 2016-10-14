@@ -12,7 +12,7 @@ import (
 var WIN_CPU_EXEC = []string { "cscript.exe", "//NoLogo", "..\\etc\\cpuTime.vbs" }
 
 
-func GetWinStats() float64 {
+func Win_CpuLoad() float32 {
 
 	handle := exec.Command(WIN_CPU_EXEC[0], WIN_CPU_EXEC[1], WIN_CPU_EXEC[2])
 	handlesPipe,err := handle.StdoutPipe()
@@ -20,7 +20,7 @@ func GetWinStats() float64 {
 	handlesProcessReader := bufio.NewReader(handlesPipe)
 
 
-	var cpu = 0.0
+	var cpu = float32(0)
 	for {
 		var line string
 		line, err = handlesProcessReader.ReadString('\n')
@@ -38,7 +38,8 @@ func GetWinStats() float64 {
 
 		var parts = strings.Split(line, ",")
 		if (len(parts) > 1) {
-			cpu, _ =   strconv.ParseFloat(parts[2], 64)
+			var acpu, _ =   strconv.ParseFloat(parts[2], 32)
+			cpu = float32(acpu)
 		}
 	}
 	// Wait for the result of the command; also closes our end of the pipe

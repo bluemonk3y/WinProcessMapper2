@@ -2,14 +2,9 @@ package mapper
 
 import (
 	"testing"
-	"fmt"
 )
 
 func TestNetstatStruct_Integration(t *testing.T) {
-
-	//if (true) {
-	//	return
-	//}
 
 	stats := new(ServerStats)
 
@@ -28,5 +23,5 @@ func TestNetstatStruct_Integration(t *testing.T) {
 		}
 	}
 
-	fmt.Println("\t\tMost Clients: ", foundPid, len(processMap[foundPid].clients))
+	t.Log("\t\tMost Clients: ", foundPid, len(processMap[foundPid].clients))
 }

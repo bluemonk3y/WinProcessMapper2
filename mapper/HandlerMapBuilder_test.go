@@ -2,7 +2,6 @@ package mapper
 
 import (
 	"testing"
-	"fmt"
 )
 
 func TestLineMatching(t *testing.T) {
@@ -22,10 +21,6 @@ func TestLineMatching(t *testing.T) {
 
 func TestHandler_Integration(t *testing.T) {
 
-	//if (true) {
-	//	return
-	//}
-
 	stats := new(ServerStats)
 
 	var processMap = make(map[int]PidMap)
@@ -42,5 +37,5 @@ func TestHandler_Integration(t *testing.T) {
 	}
 
 
-	fmt.Println("\t\tMost Files: ", foundPid, processMap[foundPid].name, len(processMap[foundPid].files))
+	t.Log("tMost Files: ", foundPid, processMap[foundPid].name, len(processMap[foundPid].files))
 }
