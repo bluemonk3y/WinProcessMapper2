@@ -23,16 +23,12 @@ func logIt(msg string) {
 
 func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
-	logIt("process handles")
-
 	handle := exec.Command("../etc/Handle.exe")
 	handlesPipe,err := handle.StdoutPipe()
 	handle.Start()
 	handlesProcessReader := bufio.NewReader(handlesPipe)
 
 	var currentPIdMap = PidMap{name: "", owner: "", pid: 0, files: []string{} }
-
-	logIt("process handles================================")
 
 	for {
 		var line string
@@ -48,7 +44,7 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 		if err != nil {
 			panic(err)
 		}
-		var lineType = getLineType(line);
+		var lineType = getLineType(line)
 
 		if (lineType == LINE_PID) {
 			if (currentPIdMap.pid != 0) {
@@ -56,16 +52,19 @@ func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 			}
 			var parts = strings.Fields(line)
 
-			var aaa, _ =   strconv.Atoi(parts[2])
-			currentPIdMap = PidMap{name: parts[0], owner: parts[3], pid: aaa, files: []string{"aaa"} }
+			var pid, _ =   strconv.Atoi(parts[2])
+			currentPIdMap = PidMap{name: parts[0], owner: parts[3], pid: pid, files: []string{"aaa"} }
 
-		} else if (lineType == LINE_FILE){
+		} else if (lineType == LINE_FILE) {
 			//fmt.Printf("BBB %+v \n", currentPIdMap)
-			var parts = strings.Fields(line)
-			var sofile = parts[3]
-			var fileIndex = strings.LastIndex(line, sofile)
-			var ff = line[fileIndex:len(line)]
-			currentPIdMap.files = append(currentPIdMap.files,ff)
+			if (strings.Contains(line, "log")) {
+				var parts = strings.Fields(line)
+				var sofile = parts[3]
+				var fileIndex = strings.LastIndex(line, sofile)
+				var ff = line[fileIndex:len(line)]
+				currentPIdMap.files = append(currentPIdMap.files, ff)
+			}
+			currentPIdMap.fileHandles += 1
 			stats.file_handles += 1
 		}
 	}

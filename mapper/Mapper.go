@@ -4,9 +4,6 @@ package mapper
 import (
 	"fmt"
 	"log"
-	"os/exec"
-	"bufio"
-	"io"
 	"strings"
 	"github.com/influxdata/influxdb/client/v2"
 	"time"
@@ -30,43 +27,10 @@ type PidMap struct {
 	name, owner string
 	pid, ppid int
 	files []string
+	fileHandles int
+	listening []string
+	clients []string
 }
-
-
-
-func processNetstat(stats *ServerStats, processMap map[int]PidMap) {
-	netout := exec.Command("netstat", "-a", "-n", "-o")
-	netstatPipe,err2 := netout.StdoutPipe()
-
-	netout.Start()
-	netstatProcessReader := bufio.NewReader(netstatPipe)
-	for {
-		var line string
-		line, err2 = netstatProcessReader.ReadString('\n')
-		if err2 == io.EOF  {
-			// Good end of file with no partial line
-			break
-		}
-		if err2 == io.EOF {
-			err2 := fmt.Errorf("Last line not terminated: %q", line)
-			panic(err2)
-		}
-		if err2 != nil {
-			panic(err2)
-		}
-		if (strings.Contains(line, "LISTENING")) {
-			stats.server_ports += 1
-		}
-		if (strings.Contains(line, "ESTABLISHED")) {
-			stats.client_ports += 1
-		}
-
-		fmt.Print(line)
-	}
-}
-
-
-
 
 func writeServerStats(serverStats *ServerStats)  {
 
