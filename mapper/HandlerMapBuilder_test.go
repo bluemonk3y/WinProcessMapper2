@@ -30,7 +30,6 @@ func TestHandler_Integration(t *testing.T) {
 
 	var processMap = make(map[int]PidMap)
 	processHandles(stats, processMap)
-	fmt.Println(len(processMap))
 
 	// find process with largest number of file handles
 	var largestFiles = 0
