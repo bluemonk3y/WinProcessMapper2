@@ -14,10 +14,17 @@ const (
 	PORT_ESTABLISHED
 	PORT_OTHER
 )
+const  (
+ 	NS_PROTOCOL = iota
+	NS_LOCAL
+	NS_FORGEIGN
+	NS_STATE
+	NS_PID
+)
 
 func processNetstat(stats *ServerStats, processMap map[int]PidMap) {
 	//netout := exec.Command("netstat", "-a", "-n", "-o")
-	netout := exec.Command("netstat", "-a", "-o")
+	netout := exec.Command("netstat", "-ano")
 	netstatPipe, err2 := netout.StdoutPipe()
 
 	netout.Start()
@@ -44,9 +51,9 @@ func processNetstat(stats *ServerStats, processMap map[int]PidMap) {
 		if (len(parts) == 5) {
 
 
-			var pid, _ = strconv.Atoi(parts[4])
-			var address = parts[1]
-			//fmt.Print(pid)
+			var pid, _ = strconv.Atoi(parts[NS_PID])
+			var local = parts[NS_LOCAL]
+			var forgeign = parts[NS_FORGEIGN]
 
 			vval, exists := processMap[pid]
 			if (!exists) {
@@ -54,12 +61,11 @@ func processNetstat(stats *ServerStats, processMap map[int]PidMap) {
 			}
 
 			if (lineType == PORT_LISTENING) {
-				//fmt.Print(line)
-				vval.listening = append(vval.listening, address)
+				vval.listening = append(vval.listening, local)
 				stats.server_ports += 1
 			}
 			if (lineType == PORT_ESTABLISHED) {
-				vval.clients = append(vval.clients, address)
+				vval.clients = append(vval.clients, forgeign)
 				processMap[pid] = vval
 				stats.client_ports += 1
 			}

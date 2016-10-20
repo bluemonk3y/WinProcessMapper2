@@ -23,5 +23,5 @@ func TestNetstatStruct_Integration(t *testing.T) {
 		}
 	}
 
-	t.Log("\t\tMost Clients: ", foundPid, len(processMap[foundPid].clients))
+	t.Log("\t\tMost Clients: ", foundPid, processMap[foundPid])
 }

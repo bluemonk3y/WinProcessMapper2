@@ -1,29 +1,34 @@
 
 Scikit-learn:
 
-# use this docker image
-davidshen84/scikit-learn
+https://www.safaribooksonline.com/library/view/hands-on-machine-learning/9781491962282/ch02.html
+
+Get the env running:
+    a) Boot fresh ubunto docker image (created blu3monk3y/scikit-learn-1 ) - still need to run jupyter as below **)
+
+    OR
+
+    b) Alternatively:
+
+        #root
+        bash
+        apt-get update
+        apt-get install python3-pip
+        pip3 --version
+        pip3 install --upgrade pip
+
+        ML-Env
+        $ export ML_PATH="$HOME/ml"      # You can change the path if you prefer
+        $ mkdir -p $ML_PATH
 
 
-From fresh ubunto docker image
+        $ pip3 install jupyter    matplotlib numpy pandas scipy scikit-learn
 
- https://www.safaribooksonline.com/library/view/hands-on-machine-learning/9781491962282/ch02.html
+        check the env
+        $ python3 -c "import jupyter, matplotlib, numpy, pandas, scipy, sklearn"
 
-    apt-get update
-    sudo apt-get install python3-pip
-    pip3 --version
-    pip3 install --upgrade pip
+RUN jupyter from 0.0.0.0 so everything can access it
+    $  jupyter notebook --debug --no-browser --ip=0.0.0.0
 
-
-    ML-Env
-    $ export ML_PATH="$HOME/ml"      # You can change the path if you prefer
-    $ mkdir -p $ML_PATH
-
-
-    $ pip3 install jupyter    matplotlib numpy pandas scipy scikit-learn
-
-    check the env
-    $ python3 -c "import jupyter, matplotlib, numpy, pandas, scipy, sklearn"
-
-    run jupyter
-    $ jupyter notebook
+    (**) Access
+    http://192.168.99.100:32768/tree
