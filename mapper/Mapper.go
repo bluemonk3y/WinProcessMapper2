@@ -53,7 +53,7 @@ func finaliseServerStats(stats *ServerStats, processMap map[int]PidMap){
 
 }
 
-func writeServerStats(serverStats *ServerStats)  {
+func writeServerStatsToInflux(serverStats *ServerStats)  {
 
 
 	/**
