@@ -63,7 +63,7 @@ func writeServerStatsToInflux(serverStats *ServerStats)  {
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		//		Addr: "http://localhost:8086",
-		Addr: "http://192.168.99.100:32768",
+		Addr: "http://192.168.99.100:32771",
 		Username: username,
 		Password: password,
 	})
@@ -98,12 +98,17 @@ func writeServerStatsToInflux(serverStats *ServerStats)  {
 	// + subnet, ip
 	pt, err := client.NewPoint("server_stats", tags, fields, time.Now())
 
+	println("writing output")
+
 
 	if err != nil {
 		log.Fatalln("Error: ", err)
 	}
 
 	bp.AddPoint(pt)
+
+
+	println("writing outpu 11111111111111111 t")
 
 	// Write the batch
 	c.Write(bp)
@@ -142,7 +147,7 @@ func main2() {
 
 
 
-	writeServerStats(stats)
+	writeServerStatsToInflux(stats)
 
 
 

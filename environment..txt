@@ -32,3 +32,16 @@ RUN jupyter from 0.0.0.0 so everything can access it
 
     (**) Access
     http://192.168.99.100:32768/tree
+
+
+InfluxDB server stats
+1. Windows - run kitematic->InfluxDBOfficial - need to add UI port for 8083
+2. Write to rest endpoint 8086 (check docker port matches)
+3. Create database otherwise stats are not stored
+4. Mapper_test will write server stats - use go test -v
+5. InfluxUI:8083 run: select * FROM "server_stats"
+
+ArangoDB
+1. Docker image - wont start - disable auth
+2. ARANGO_NO_AUTH=1
+3. Need go-client - looking at https://github.com/diegogub/aranGO

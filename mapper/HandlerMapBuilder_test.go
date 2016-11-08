@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestLineMatching(t *testing.T) {
+func TestHMB_LineMatching(t *testing.T) {
 
 	if (getLineType("10: File  (---)   C:\\Wi11ndows") != LINE_FILE) {
 		t.Errorf("TestLineMatching:Should be FILE")
@@ -19,7 +19,7 @@ func TestLineMatching(t *testing.T) {
 	}
 }
 
-func TestHandler_Integration(t *testing.T) {
+func TestHMB_Integration(t *testing.T) {
 
 	stats := new(ServerStats)
 

@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestNetstatStruct_Integration(t *testing.T) {
+func TestNSBuilder_Integration(t *testing.T) {
 
 	stats := new(ServerStats)
 
