@@ -3,6 +3,9 @@ package mapper
 import (
 	"testing"
 )
+/**
+ go test -v  -run HandlerMapBuilder_test.go
+ */
 
 func TestNSBuilder_Integration(t *testing.T) {
 

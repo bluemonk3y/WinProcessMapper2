@@ -6,6 +6,7 @@ import (
 )
 /**
 * go test -v
+* go test -v  -run HandlerMapBuilder_test.go
  */
 func TestMapper_INT_ALL(t *testing.T) {
 
