@@ -6,6 +6,8 @@ import (
 
 func TestHMB_LineMatching(t *testing.T) {
 
+	t.Errorf("TestLineMatching:Should be PID")
+
 	if (getLineType("10: File  (---)   C:\\Wi11ndows") != LINE_FILE) {
 		t.Errorf("TestLineMatching:Should be FILE")
 	}

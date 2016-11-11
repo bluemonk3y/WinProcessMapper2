@@ -108,10 +108,12 @@ func writeServerStatsToInflux(serverStats *ServerStats)  {
 	bp.AddPoint(pt)
 
 
-	println("writing outpu 11111111111111111 t")
-
 	// Write the batch
-	c.Write(bp)
+	err = c.Write(bp)
+	if err != nil {
+		log.Fatalln("Failed to write Error: ", err)
+	}
+
 }
 // Get preferred outbound ip of this machine
 func GetOutboundIP() string {

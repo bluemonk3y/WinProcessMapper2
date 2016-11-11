@@ -6,10 +6,8 @@ import (
 )
 /**
 * go test -v
-* go test -v  -run HandlerMapBuilder_test.go
+* go test -v  -run TestMapper_INT_ALL
  */
-func TestMapper_INT_ALL(t *testing.T) {
-
 func TestMapper_INT_ALL(t *testing.T) {
 
 	stats := new(ServerStats)

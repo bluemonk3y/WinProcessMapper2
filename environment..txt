@@ -45,3 +45,4 @@ ArangoDB
 1. Docker image - wont start - disable auth
 2. ARANGO_NO_AUTH=1
 3. Need go-client - looking at https://github.com/diegogub/aranGO
+4. Web interface is exposed on port:8526
