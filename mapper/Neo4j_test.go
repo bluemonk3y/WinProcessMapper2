@@ -3,15 +3,14 @@ package mapper
 
 import (
 	_ "gopkg.in/cq.v1"
-	//"github.com/jmcvetta/neoism"
 	"testing"
 	//"database/sql"
 	//"log"
 	_ "github.com/jmcvetta/neoism"
 	"database/sql"
 	"log"
-	"github.com/jmcvetta/neoism"
 	"fmt"
+	"github.com/jmcvetta/neoism"
 )
 
 
@@ -96,17 +95,7 @@ func TestNeoDb_neoism(t *testing.T) {
 }
 
 func TestNeoDb_basic0(t *testing.T) {
-	t.Log("WRITING::::::::::11:")
-	//_db, err := neoism.Connect("http://localhost:7474/db/data")
-	//if err != nil{
-	//	panic(err)
-	//}
-	//http://192.168.99.100:32781/
-	//db, err := sql.Open("neo4j-cypher", "http://localhost:7474")
-	//NEO4J_URL=http://your_user:your_password@neo4j.yourdomain.com/db/data/
 
-
-    //
 	db, err := sql.Open("neo4j-cypher", "http://neo4j:admin@192.168.99.100:32781")
 	if err != nil {
 		log.Fatal(err)
