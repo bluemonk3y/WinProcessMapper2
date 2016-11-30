@@ -134,6 +134,7 @@ func MainGo() {
 
 
 
+	fmt.Printf("------------- GO! ")
 
 	stats := new(ServerStats)
 
