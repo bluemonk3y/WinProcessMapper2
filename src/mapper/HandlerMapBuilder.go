@@ -15,9 +15,9 @@ const (
 )
 var IGNORE_PATHS = []string { "C:\\Windows",  "C:\\Program Files" }
 
-func processHandles(stats *ServerStats, processMap map[int]PidMap) {
+func processHandles(path string, stats *ServerStats, processMap map[int]PidMap) {
 
-	handle := exec.Command("../../etc/Handle.exe")
+	handle := exec.Command(path)
 	handlesPipe,err := handle.StdoutPipe()
 	err = handle.Start()
 	if (err != nil) {

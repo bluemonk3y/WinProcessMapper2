@@ -130,7 +130,7 @@ func GetOutboundIP() string {
 }
 
 
-func MainGo() {
+func MainGo(path string) {
 
 
 
@@ -142,7 +142,7 @@ func MainGo() {
 
 
 	fmt.Printf("handles ")
-	processHandles(stats, processMap)
+	processHandles(path, stats, processMap)
 
 
 	fmt.Printf("netstat ")

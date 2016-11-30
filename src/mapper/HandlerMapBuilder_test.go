@@ -29,7 +29,7 @@ func TestHMB_Integration(t *testing.T) {
 	stats := new(ServerStats)
 
 	var processMap = make(map[int]PidMap)
-	processHandles(stats, processMap)
+	processHandles("../../etc/Handle.exe", stats, processMap)
 
 	// find process with largest number of file handles
 	var largestFiles = 0
