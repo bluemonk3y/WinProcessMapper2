@@ -21,6 +21,9 @@ func TestHMB_LineMatching(t *testing.T) {
 	}
 }
 
+/**
+ *>go test -v  -run TestHMB_Integration
+ */
 func TestHMB_Integration(t *testing.T) {
 
 	stats := new(ServerStats)

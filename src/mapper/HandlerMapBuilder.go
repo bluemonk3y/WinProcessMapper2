@@ -17,9 +17,13 @@ var IGNORE_PATHS = []string { "C:\\Windows",  "C:\\Program Files" }
 
 func processHandles(stats *ServerStats, processMap map[int]PidMap) {
 
-	handle := exec.Command("../etc/Handle.exe")
+	handle := exec.Command("../../etc/Handle.exe")
 	handlesPipe,err := handle.StdoutPipe()
-	handle.Start()
+	err = handle.Start()
+	if (err != nil) {
+		err := fmt.Errorf("Failed to run process: %q", err)
+		panic(err)
+	}
 	handlesProcessReader := bufio.NewReader(handlesPipe)
 
 	var currentPIdMap = PidMap{name: "", owner: "", pid: 0, files: []string{} }
