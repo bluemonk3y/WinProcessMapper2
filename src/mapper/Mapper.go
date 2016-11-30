@@ -130,7 +130,9 @@ func GetOutboundIP() string {
 }
 
 
-func main2() {
+func MainGo() {
+
+
 
 
 	stats := new(ServerStats)
