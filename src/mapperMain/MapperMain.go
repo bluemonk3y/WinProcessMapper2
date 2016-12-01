@@ -13,5 +13,8 @@ import (
  */
 func main() {
 
-	mapper.MainGo("etc/Handle.exe")
+	var handleExe = "etc/Handle.exe"
+	var influxURL = "http://192.168.99.100:32771"
+
+	mapper.MainGo(handleExe, influxURL, "", "")
 }

@@ -53,7 +53,7 @@ func finaliseServerStats(stats *ServerStats, processMap map[int]PidMap){
 
 }
 
-func writeServerStatsToInflux(serverStats *ServerStats)  {
+func writeServerStatsToInflux(serverStats *ServerStats, influxURL string, influxU string, influxP string)  {
 
 
 	/**
@@ -63,9 +63,9 @@ func writeServerStatsToInflux(serverStats *ServerStats)  {
 
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		//		Addr: "http://localhost:8086",
-		Addr: "http://192.168.99.100:32771",
-		Username: username,
-		Password: password,
+		Addr: influxURL,
+		Username: influxU,
+		Password: influxP,
 	})
 
 	if err != nil {
@@ -130,31 +130,25 @@ func GetOutboundIP() string {
 }
 
 
-func MainGo(path string) {
+func MainGo(path string,  influxURL string, influxU string, influxP string) {
 
-
-
-	fmt.Printf("------------- GO! ")
+	fmt.Printf("------------- Collecting stats ")
 
 	stats := new(ServerStats)
 
 	var processMap = make(map[int]PidMap)
 
 
-	fmt.Printf("handles ")
+	fmt.Printf("collecting handles ")
 	processHandles(path, stats, processMap)
 
 
-	fmt.Printf("netstat ")
+	fmt.Printf("collecting netstat ")
 
 	processNetstat(stats, processMap)
 
-
-
-
-	writeServerStatsToInflux(stats)
-
-
+	fmt.Printf("write to influx")
+	writeServerStatsToInflux(stats, influxURL, influxU, influxP)
 
 //	if err2 != nil {
 //		log.Fatal(err)
