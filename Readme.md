@@ -8,7 +8,6 @@
 
 See MapperMain.go & env.bat
 
-# Dockerise it
+# Dockerise It
 * Need to expose docker params so it can be layers up on the fly
-
-See Dockerfile
+* See Dockerfile
