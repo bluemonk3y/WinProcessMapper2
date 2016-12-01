@@ -132,22 +132,22 @@ func GetOutboundIP() string {
 
 func MainGo(path string,  influxURL string, influxU string, influxP string) {
 
-	fmt.Printf("------------- Collecting stats ")
+	fmt.Println("------------- Collecting stats ")
 
 	stats := new(ServerStats)
 
 	var processMap = make(map[int]PidMap)
 
 
-	fmt.Printf("collecting handles ")
+	fmt.Println("collecting handles ")
 	processHandles(path, stats, processMap)
 
 
-	fmt.Printf("collecting netstat ")
+	fmt.Println("collecting netstat ")
 
 	processNetstat(stats, processMap)
 
-	fmt.Printf("write to influx")
+	fmt.Println("write to influx")
 	writeServerStatsToInflux(stats, influxURL, influxU, influxP)
 
 //	if err2 != nil {

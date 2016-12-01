@@ -14,7 +14,8 @@ import (
 func main() {
 
 	var handleExe = "etc/Handle.exe"
-	var influxURL = "http://192.168.99.100:32771"
+	// curl -i -XPOST http://localhost:8086/query --data-urlencode "q=CREATE DATABASE mydb"
+	var influxURL = "http://192.168.99.100:32768"
 
 	mapper.MainGo(handleExe, influxURL, "", "")
 }
