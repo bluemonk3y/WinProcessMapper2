@@ -10,6 +10,7 @@ import (
    go get -u github.com/bluemonk3y/WinProcessMapper2/src/mapper
  2. build: go build -o mapper.exe -v mapperMain
  3. Run it> mapper.exe
+ 4. Cross compilation targets https://golang.org/doc/install/source#environment
  */
 func main() {
 

@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM golang:1.6-onbuild
 MAINTAINER Monkeyworks Inc <help@monkey.works>
 LABEL works.monkey.role=system
 WORKDIR /home/monkey

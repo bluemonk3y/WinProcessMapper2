@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;WinProcessMapper2&gt;">
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/golang.org" />
       <root url="file://C:/Go/src/math" />
       <root url="file://C:/Go/src/errors" />
       <root url="file://C:/Go/src/sort" />
@@ -9,6 +10,7 @@
       <root url="file://C:/Go/src/crypto" />
       <root url="file://C:/Go/src/image" />
       <root url="file://C:/Go/src/compress" />
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/gopkg.in" />
       <root url="file://C:/Go/src/io" />
       <root url="file://C:/Go/src/mime" />
       <root url="file://C:/Go/src/fmt" />
@@ -26,6 +28,7 @@
       <root url="file://C:/Go/src/collectd.org" />
       <root url="file://C:/Go/src/gopkg.in" />
       <root url="file://C:/Go/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/github.com" />
       <root url="file://C:/Go/src/bytes" />
       <root url="file://C:/Go/src/time" />
       <root url="file://C:/Go/src/debug" />
@@ -49,6 +52,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/golang.org" />
       <root url="file://C:/Go/src/math" />
       <root url="file://C:/Go/src/errors" />
       <root url="file://C:/Go/src/sort" />
@@ -57,6 +61,7 @@
       <root url="file://C:/Go/src/crypto" />
       <root url="file://C:/Go/src/image" />
       <root url="file://C:/Go/src/compress" />
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/gopkg.in" />
       <root url="file://C:/Go/src/io" />
       <root url="file://C:/Go/src/mime" />
       <root url="file://C:/Go/src/fmt" />
@@ -74,6 +79,7 @@
       <root url="file://C:/Go/src/collectd.org" />
       <root url="file://C:/Go/src/gopkg.in" />
       <root url="file://C:/Go/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../VdBSpike-1/src/github.com" />
       <root url="file://C:/Go/src/bytes" />
       <root url="file://C:/Go/src/time" />
       <root url="file://C:/Go/src/debug" />
@@ -94,7 +100,9 @@
       <root url="file://C:/Go/src/strconv" />
       <root url="file://C:/Go/src/unicode" />
       <root url="file://C:/Go/src/cmd" />
-      <root url="file://$PROJECT_DIR$/src/mapper" />
     </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
   </library>
 </component>
